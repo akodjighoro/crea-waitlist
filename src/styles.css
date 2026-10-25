@@ -61,43 +61,6 @@ input {
   justify-content: center;
 }
 
-.atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.goo-wrap {
-  position: absolute;
-  inset: 0;
-  opacity: 0.38;
-}
-
-.goo {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.blob-slot { position: absolute; }
-.blob { border-radius: 50%; }
-.blob-lg { width: 210px; height: 210px; }
-.blob-xl { width: 260px; height: 260px; }
-.blob-sm { width: 150px; height: 150px; }
-.blob-a { top: 4%; left: -48px; }
-.blob-b { right: -70px; bottom: 6%; }
-.blob-c { left: 12%; bottom: 18%; }
-
-.orb {
-  position: absolute;
-  opacity: 0.62;
-}
-
-.orb-tl { top: 7%; left: 7%; }
-.orb-tr { top: 12%; right: 8%; }
-.orb-br { right: 10%; bottom: 9%; }
-
 .beam {
   width: 100%;
   max-width: 400px;
@@ -105,14 +68,23 @@ input {
 
 .beam-btn { width: 100%; }
 
-.page > :not(.atmosphere) {
-  position: relative;
-  z-index: 1;
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 28px;
+}
+
+.orb {
+  width: 64px;
+  height: 64px;
+  line-height: 0;
 }
 
 .mark {
   margin: 0;
-  padding: 0 0 28px;
+  padding: 0;
   font-family: var(--mark);
   font-size: 64px;
   font-weight: 100;
@@ -352,7 +324,7 @@ input {
 .d3 { animation-delay: 240ms; }
 .d4 { animation-delay: 320ms; }
 
-.mark.enter {
+.brand.enter {
   animation-name: settle;
 }
 
@@ -374,11 +346,6 @@ input {
 @keyframes fade {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-@keyframes drift {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(18px, 12px, 0); }
 }
 
 @keyframes pulse {
