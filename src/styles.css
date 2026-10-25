@@ -1,13 +1,13 @@
 :root {
   --bg: #002aff;
   --text: #ffffff;
-  --muted: #d7e3ff;
-  --faint: #b7c9ff;
-  --line: #4d74ff;
-  --danger: #ffb4b4;
+  --ink: #002aff;
+  --muted: #e8eeff;
+  --faint: #ffffff;
+  --danger: #ffe0e0;
   --on-accent: #002aff;
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mark: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mark: "HelveticaNeue-UltraLight", "Helvetica Neue UltraLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -44,6 +44,9 @@ input {
 }
 
 .page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 100svh;
   width: 100%;
   margin: 0;
@@ -54,12 +57,38 @@ input {
   justify-content: center;
 }
 
+.page::before,
+.page::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.page::before {
+  width: 340px;
+  height: 340px;
+  top: 8%;
+  left: -80px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.page::after {
+  width: 380px;
+  height: 380px;
+  right: -90px;
+  bottom: 4%;
+  background: rgba(120, 170, 255, 0.45);
+}
+
 .mark {
   margin: 0;
   padding: 0 0 24px;
   font-family: var(--mark);
   font-size: 64px;
-  font-weight: 300;
+  font-weight: 100;
   letter-spacing: 0;
   text-transform: lowercase;
   text-align: center;
@@ -69,17 +98,40 @@ input {
 
 .spots {
   margin: 16px 0 0;
-  color: var(--muted);
+  padding: 8px 14px;
+  color: #fff;
   font-size: 15px;
+  font-weight: 400;
   text-align: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass {
+  width: 100%;
+  max-width: 400px;
+  padding: 26px 22px 22px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 16px 48px rgba(0, 12, 96, 0.22);
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: rgba(255, 255, 255, 0.22); }
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  width: 100%;
-  max-width: 400px;
+  gap: 20px;
 }
 
 .fields {
@@ -101,38 +153,54 @@ input {
 }
 
 .label, .count {
-  color: var(--faint);
+  color: #fff;
   font-size: 13px;
+  font-weight: 500;
   letter-spacing: 0.2px;
 }
 
+.count { color: rgba(255, 255, 255, 0.78); }
 .count.warn { color: var(--danger); }
 
 .input-row {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  border-bottom: 0.5px solid var(--line);
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-.input-row:focus-within { border-bottom-color: var(--text); }
-.input-row.invalid { border-bottom-color: var(--danger); }
+.input-row:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
+.input-row.invalid {
+  outline: 2px solid #ffb4b4;
+  outline-offset: 2px;
+}
 
 .prefix {
-  color: var(--muted);
+  color: var(--ink);
   font-size: 17px;
+  font-weight: 500;
   padding-right: 4px;
 }
 
 .input {
   font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
   padding: 10px 0;
 }
 
-.input::placeholder { color: var(--faint); }
+.input::placeholder { color: rgba(0, 42, 255, 0.42); }
 
 .hint {
-  color: var(--faint);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 13px;
   line-height: 18px;
 }
@@ -175,7 +243,7 @@ input {
 }
 
 .legal {
-  color: var(--faint);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 13px;
   line-height: 18px;
   text-align: center;

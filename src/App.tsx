@@ -239,7 +239,7 @@ export function App() {
     return (
       <main className="page">
         <h1 className="mark enter">crea</h1>
-        <div className="done">
+        <div className="glass done">
           <div className="number enter d1">#{place.position}</div>
           <h2 className="done-title enter d2">you’re in line.</h2>
           <p className="done-copy enter d3">@{place.username} is reserved. We’ll email you when it’s your turn.</p>
@@ -261,7 +261,7 @@ export function App() {
     return (
       <main className="page">
         <h1 className="mark enter">crea</h1>
-        <div className="locked enter d1">
+        <div className="glass locked enter d1">
           <p className="locked-copy">This device already reserved a spot.</p>
           <p className="locked-number">#{place.position}</p>
           <p className="locked-copy">@{place.username} is reserved.</p>
@@ -275,11 +275,11 @@ export function App() {
     return (
       <main className="page">
         <h1 className="mark enter">crea</h1>
-        <div className="closed enter d1">
+        <div className="glass closed enter d1">
           <h2 className="done-title">the first 100 are in.</h2>
           <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
         </div>
-        <form className="form enter d2" onSubmit={lookup}>
+        <form className="glass form enter d2" onSubmit={lookup}>
           <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
           {error ? <p className="error">{error}</p> : null}
           <button className="submit" type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
@@ -291,7 +291,7 @@ export function App() {
   return (
     <main className="page">
       <h1 className="mark enter">crea</h1>
-      <form className="form enter d1" onSubmit={submit}>
+      <form className="glass form enter d1" onSubmit={submit}>
         <div className="fields">
           <Field
             label="instagram"
