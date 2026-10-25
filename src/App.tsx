@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { Beam, Page } from './Effects';
 
 const CAP = 100;
 const STORE = 'crea.waitlist';
@@ -233,109 +234,114 @@ export function App() {
 
   if (!supabase) {
     return (
-      <main className="page">
-        <h1 className="mark enter">crea</h1>
+      <Page>
         <p className="setup enter d1">Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to web/.env.local.</p>
-      </main>
+      </Page>
     );
   }
 
   if (place && thanks) {
     return (
-      <main className="page">
-        <h1 className="mark enter">crea</h1>
-        <div className="glass done">
-          <div className="number enter d1">#{place.position}</div>
-          <h2 className="done-title enter d2">you’re in line.</h2>
-          <p className="done-copy enter d3">@{place.username} is reserved. We’ll email you when it’s your turn.</p>
-          <button className="reset enter d4" type="button" onClick={() => { writeThanks(false); setThanks(false); }}>done</button>
-        </div>
-      </main>
+      <Page>
+        <Beam className="beam enter d1" radius={24}>
+          <div className="glass done">
+            <div className="number">#{place.position}</div>
+            <h2 className="done-title">you’re in line.</h2>
+            <p className="done-copy">@{place.username} is reserved. We’ll email you when it’s your turn.</p>
+            <button className="reset" type="button" onClick={() => { writeThanks(false); setThanks(false); }}>done</button>
+          </div>
+        </Beam>
+      </Page>
     );
   }
 
   if (!ready) {
-    return (
-      <main className="page">
-        <h1 className="mark enter">crea</h1>
-      </main>
-    );
+    return <Page />;
   }
 
   if (place) {
     return (
-      <main className="page">
-        <h1 className="mark enter">crea</h1>
-        <div className="glass locked enter d1">
-          <p className="locked-copy">This device already reserved a spot.</p>
-          <p className="locked-number">#{place.position}</p>
-          <p className="locked-copy">@{place.username} is reserved.</p>
-        </div>
+      <Page>
+        <Beam className="beam enter d1" radius={24}>
+          <div className="glass locked">
+            <p className="locked-copy">This device already reserved a spot.</p>
+            <p className="locked-number">#{place.position}</p>
+            <p className="locked-copy">@{place.username} is reserved.</p>
+          </div>
+        </Beam>
         <p className="spots enter d2">{remaining} of {CAP} spots left</p>
-      </main>
+      </Page>
     );
   }
 
   if (closed) {
     return (
-      <main className="page">
-        <h1 className="mark enter">crea</h1>
-        <div className="glass closed enter d1">
-          <h2 className="done-title">the first 100 are in.</h2>
-          <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
-        </div>
-        <form className="glass form enter d2" onSubmit={lookup}>
-          <div className="fields">
-            <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
+      <Page>
+        <Beam className="beam enter d1" radius={24}>
+          <div className="glass closed">
+            <h2 className="done-title">the first 100 are in.</h2>
+            <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
           </div>
-          {error ? <p className="error">{error}</p> : null}
-          <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
-        </form>
-      </main>
+        </Beam>
+        <Beam className="beam enter d2" radius={24}>
+          <form className="glass form" onSubmit={lookup}>
+            <div className="fields">
+              <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
+            </div>
+            {error ? <p className="error">{error}</p> : null}
+            <Beam className="beam-btn" size="sm" radius={14}>
+              <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
+            </Beam>
+          </form>
+        </Beam>
+      </Page>
     );
   }
 
   return (
-    <main className="page">
-      <h1 className="mark enter">crea</h1>
-      <form className="glass form enter d1" onSubmit={submit}>
-        <div className="fields">
-          <Field
-            label="instagram"
-            value={instagram}
-            onChange={(value) => setInstagram(normalizeHandle(value))}
-            prefix="@"
-            maxLength={30}
-            placeholder="handle"
-            autoComplete="username"
-          />
-          <Field
-            label="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="you@email.com"
-            type="email"
-            autoComplete="email"
-          />
-          <Field
-            label="desired username"
-            value={username}
-            onChange={(value) => setUsername(normalizeUsername(value))}
-            prefix="@"
-            maxLength={20}
-            hint="Letters, numbers, underscore."
-            error={usernameError}
-            autoComplete="off"
-          />
-        </div>
-        {unavailable ? <p className="error">The list is not open yet. Run the waitlist SQL in Supabase, then refresh.</p> : null}
-        {error ? <p className="error">{error}</p> : null}
-        <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy || unavailable || !!usernameError}>
-          {busy ? 'joining' : 'join'}
-        </button>
-        <p className="legal">This reserves a spot. It is not an account. You must be 17 or older.</p>
-      </form>
+    <Page>
+      <Beam className="beam enter d1" radius={24}>
+        <form className="glass form" onSubmit={submit}>
+          <div className="fields">
+            <Field
+              label="instagram"
+              value={instagram}
+              onChange={(value) => setInstagram(normalizeHandle(value))}
+              prefix="@"
+              maxLength={30}
+              placeholder="handle"
+              autoComplete="username"
+            />
+            <Field
+              label="email"
+              value={email}
+              onChange={setEmail}
+              placeholder="you@email.com"
+              type="email"
+              autoComplete="email"
+            />
+            <Field
+              label="desired username"
+              value={username}
+              onChange={(value) => setUsername(normalizeUsername(value))}
+              prefix="@"
+              maxLength={20}
+              hint="Letters, numbers, underscore."
+              error={usernameError}
+              autoComplete="off"
+            />
+          </div>
+          {unavailable ? <p className="error">The list is not open yet. Run the waitlist SQL in Supabase, then refresh.</p> : null}
+          {error ? <p className="error">{error}</p> : null}
+          <Beam className="beam-btn" size="sm" radius={14}>
+            <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy || unavailable || !!usernameError}>
+              {busy ? 'joining' : 'join'}
+            </button>
+          </Beam>
+          <p className="legal">This reserves a spot. It is not an account. You must be 17 or older.</p>
+        </form>
+      </Beam>
       <p className="spots enter d2">{remaining} of {CAP} spots left</p>
-    </main>
+    </Page>
   );
 }
