@@ -57,9 +57,9 @@ input {
 .mark {
   margin: 0;
   padding: 0 0 24px;
-  font-family: var(--mark);
+  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue UltraLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 64px;
-  font-weight: 300;
+  font-weight: 100;
   letter-spacing: 0;
   text-transform: lowercase;
   text-align: center;
