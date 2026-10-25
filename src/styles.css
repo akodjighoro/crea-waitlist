@@ -3,12 +3,10 @@
   --text: #ffffff;
   --muted: #d7e3ff;
   --faint: #b7c9ff;
+  --line: #4d74ff;
   --danger: #ffb4b4;
-  --chrome: #c0c0c0;
-  --chrome-dark: #808080;
-  --chrome-darker: #404040;
-  --ink: #000000;
-  --face: "Tahoma", "MS Sans Serif", "Segoe UI", sans-serif;
+  --on-accent: #002aff;
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --mark: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -19,7 +17,7 @@ html, body, #root {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--mark);
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -32,6 +30,8 @@ button, input {
 
 button {
   appearance: none;
+  border: 0;
+  background: none;
   cursor: pointer;
 }
 
@@ -57,9 +57,9 @@ input {
 .mark {
   margin: 0;
   padding: 0 0 24px;
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue UltraLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--mark);
   font-size: 64px;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 0;
   text-transform: lowercase;
   text-align: center;
@@ -77,63 +77,21 @@ input {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 22px;
   width: 100%;
-  max-width: 440px;
-}
-
-.window {
-  background: var(--chrome);
-  color: var(--ink);
-  font-family: var(--face);
-  width: 100%;
-  max-width: 440px;
-  padding: 3px;
-  border: 2px solid;
-  border-color: #fff var(--chrome-darker) var(--chrome-darker) #fff;
-  box-shadow: 2px 2px 0 #00168f;
-  border-radius: 0;
-}
-
-.titlebar {
-  background: #000080;
-  color: #fff;
-  font-family: var(--face);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  padding: 4px 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-}
-
-.titlebar-dot {
-  width: 14px;
-  height: 14px;
-  background: var(--chrome);
-  border: 2px solid;
-  border-color: #fff var(--chrome-darker) var(--chrome-darker) #fff;
-}
-
-.client {
-  padding: 16px 14px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  max-width: 400px;
 }
 
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .label-row {
@@ -143,105 +101,69 @@ input {
 }
 
 .label, .count {
-  color: var(--ink);
-  font-family: var(--face);
-  font-size: 12px;
+  color: var(--faint);
+  font-size: 13px;
+  letter-spacing: 0.2px;
 }
 
-.count.warn { color: #9b1c1c; }
+.count.warn { color: var(--danger); }
 
 .input-row {
   display: flex;
   align-items: center;
-  min-height: 34px;
-  padding: 0 8px;
-  background: #fff;
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--chrome-darker) #fff #fff var(--chrome-darker);
-  box-shadow: inset 1px 1px 0 var(--chrome-dark), 1px 1px 0 #fff;
-  border-radius: 0;
+  min-height: 44px;
+  border-bottom: 0.5px solid var(--line);
 }
 
-.input-row:focus-within {
-  outline: 1px dotted #000;
-  outline-offset: 2px;
-}
-
-.input-row.invalid {
-  box-shadow: inset 1px 1px 0 #9b1c1c;
-}
+.input-row:focus-within { border-bottom-color: var(--text); }
+.input-row.invalid { border-bottom-color: var(--danger); }
 
 .prefix {
-  color: #404040;
-  font-family: var(--face);
-  font-size: 13px;
+  color: var(--muted);
+  font-size: 17px;
   padding-right: 4px;
 }
 
 .input {
-  font-family: var(--face);
-  font-size: 13px;
-  color: var(--ink);
-  padding: 5px 0;
+  font-size: 17px;
+  padding: 10px 0;
 }
 
-.input::placeholder { color: #808080; }
+.input::placeholder { color: var(--faint); }
 
 .hint {
-  color: #404040;
-  font-family: var(--face);
-  font-size: 11px;
-  line-height: 15px;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 18px;
 }
 
-.hint.error { color: #9b1c1c; }
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.hint.error { color: var(--danger); }
 
 .submit,
 .reset {
-  font-family: var(--face);
-  font-size: 13px;
-  color: var(--ink);
-  background: var(--chrome);
-  min-height: 32px;
-  min-width: 96px;
-  padding: 6px 22px;
+  background: var(--text);
+  color: var(--on-accent);
+  border-radius: 14px;
+  min-height: 50px;
+  padding: 15px 24px;
+  font-size: 17px;
+  font-weight: 400;
+  align-self: stretch;
+}
+
+.reset {
   align-self: center;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #fff #000 #000 #fff;
-  box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--chrome-dark);
-  border-radius: 0;
+  min-width: 140px;
 }
 
 .submit:hover:not(:disabled),
 .reset:hover {
-  background: #d4d4d4;
-}
-
-.submit:active:not(:disabled),
-.reset:active {
-  border-color: var(--chrome-darker) #fff #fff var(--chrome-darker);
-  box-shadow: inset 1px 1px 0 var(--chrome-dark);
-  padding: 7px 21px 5px 23px;
+  opacity: 0.92;
 }
 
 .submit:disabled {
-  color: var(--chrome-dark);
-  text-shadow: 1px 1px 0 #fff;
+  opacity: 0.35;
   cursor: default;
-}
-
-.submit:focus-visible,
-.reset:focus-visible {
-  outline: 1px dotted #000;
-  outline-offset: -6px;
 }
 
 .error {
@@ -250,13 +172,6 @@ input {
   line-height: 20px;
   text-align: center;
   min-height: 20px;
-}
-
-.window .error {
-  color: #9b1c1c;
-  font-family: var(--face);
-  font-size: 12px;
-  min-height: 0;
 }
 
 .legal {
@@ -268,7 +183,8 @@ input {
 }
 
 .done,
-.closed {
+.closed,
+.locked {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -279,7 +195,8 @@ input {
 
 .done { padding-bottom: 8px; }
 
-.number {
+.number,
+.locked-number {
   font-size: 72px;
   font-weight: 300;
   letter-spacing: -2px;
@@ -288,6 +205,8 @@ input {
   color: var(--text);
 }
 
+.locked-number { font-size: 48px; }
+
 .done-title {
   font-size: 22px;
   font-weight: 400;
@@ -295,7 +214,8 @@ input {
   color: var(--text);
 }
 
-.done-copy {
+.done-copy,
+.locked-copy {
   color: var(--muted);
   font-size: 16px;
   font-weight: 300;
@@ -305,24 +225,6 @@ input {
 }
 
 .reset { margin-top: 8px; }
-
-.locked-copy {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--face);
-  font-size: 13px;
-  text-align: center;
-}
-
-.locked-number {
-  margin: 4px 0;
-  color: var(--ink);
-  font-family: var(--face);
-  font-size: 28px;
-  font-weight: 700;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-}
 
 .setup {
   color: var(--danger);
@@ -342,7 +244,6 @@ input {
 .d4 { animation-delay: 280ms; }
 
 .hint.error,
-.window .error,
 .error {
   animation: fade 220ms ease-out both;
 }
@@ -360,7 +261,6 @@ input {
 @media (prefers-reduced-motion: reduce) {
   .enter,
   .hint.error,
-  .window .error,
   .error {
     animation: none;
   }

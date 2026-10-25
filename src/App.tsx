@@ -261,13 +261,10 @@ export function App() {
     return (
       <main className="page">
         <h1 className="mark enter">crea</h1>
-        <div className="window enter d1">
-          <div className="titlebar"><span>Join the first 100</span><span className="titlebar-dot" /></div>
-          <div className="client">
-            <p className="locked-copy">This device already reserved a spot.</p>
-            <p className="locked-number">#{place.position}</p>
-            <p className="locked-copy">@{place.username} is reserved.</p>
-          </div>
+        <div className="locked enter d1">
+          <p className="locked-copy">This device already reserved a spot.</p>
+          <p className="locked-number">#{place.position}</p>
+          <p className="locked-copy">@{place.username} is reserved.</p>
         </div>
         <p className="spots enter d2">{remaining} of {CAP} spots left</p>
       </main>
@@ -282,15 +279,10 @@ export function App() {
           <h2 className="done-title">the first 100 are in.</h2>
           <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
         </div>
-        <form className="form" onSubmit={lookup}>
-          <div className="window enter d2">
-            <div className="titlebar"><span>Look up</span><span className="titlebar-dot" /></div>
-            <div className="client">
-              <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
-              {error ? <p className="error">{error}</p> : null}
-              <button className="submit" type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
-            </div>
-          </div>
+        <form className="form enter d2" onSubmit={lookup}>
+          <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
+          {error ? <p className="error">{error}</p> : null}
+          <button className="submit" type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
         </form>
       </main>
     );
@@ -299,49 +291,44 @@ export function App() {
   return (
     <main className="page">
       <h1 className="mark enter">crea</h1>
-      <form className="form" onSubmit={submit}>
-        <div className="window enter d1">
-          <div className="titlebar"><span>Join the first 100</span><span className="titlebar-dot" /></div>
-          <div className="client">
-            <div className="fields">
-              <Field
-                label="instagram"
-                value={instagram}
-                onChange={(value) => setInstagram(normalizeHandle(value))}
-                prefix="@"
-                maxLength={30}
-                placeholder="handle"
-                autoComplete="username"
-              />
-              <Field
-                label="email"
-                value={email}
-                onChange={setEmail}
-                placeholder="you@email.com"
-                type="email"
-                autoComplete="email"
-              />
-              <Field
-                label="desired username"
-                value={username}
-                onChange={(value) => setUsername(normalizeUsername(value))}
-                prefix="@"
-                maxLength={20}
-                hint="Letters, numbers, underscore."
-                error={usernameError}
-                autoComplete="off"
-              />
-            </div>
-            {unavailable ? <p className="error">The list is not open yet. Run the waitlist SQL in Supabase, then refresh.</p> : null}
-            {error ? <p className="error">{error}</p> : null}
-            <button className="submit" type="submit" disabled={busy || unavailable || !!usernameError}>
-              {busy ? 'joining' : 'join'}
-            </button>
-          </div>
+      <form className="form enter d1" onSubmit={submit}>
+        <div className="fields">
+          <Field
+            label="instagram"
+            value={instagram}
+            onChange={(value) => setInstagram(normalizeHandle(value))}
+            prefix="@"
+            maxLength={30}
+            placeholder="handle"
+            autoComplete="username"
+          />
+          <Field
+            label="email"
+            value={email}
+            onChange={setEmail}
+            placeholder="you@email.com"
+            type="email"
+            autoComplete="email"
+          />
+          <Field
+            label="desired username"
+            value={username}
+            onChange={(value) => setUsername(normalizeUsername(value))}
+            prefix="@"
+            maxLength={20}
+            hint="Letters, numbers, underscore."
+            error={usernameError}
+            autoComplete="off"
+          />
         </div>
-        <p className="legal enter d2">This reserves a spot. It is not an account. You must be 17 or older.</p>
+        {unavailable ? <p className="error">The list is not open yet. Run the waitlist SQL in Supabase, then refresh.</p> : null}
+        {error ? <p className="error">{error}</p> : null}
+        <button className="submit" type="submit" disabled={busy || unavailable || !!usernameError}>
+          {busy ? 'joining' : 'join'}
+        </button>
+        <p className="legal">This reserves a spot. It is not an account. You must be 17 or older.</p>
       </form>
-      <p className="spots enter d3">{remaining} of {CAP} spots left</p>
+      <p className="spots enter d2">{remaining} of {CAP} spots left</p>
     </main>
   );
 }
