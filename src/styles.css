@@ -209,8 +209,6 @@ input {
 
 .submit,
 .reset {
-  background: var(--text);
-  color: var(--on-accent);
   border-radius: 14px;
   min-height: 50px;
   padding: 15px 24px;
@@ -219,7 +217,15 @@ input {
   align-self: stretch;
 }
 
+.submit {
+  background: var(--ink);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
 .reset {
+  background: var(--text);
+  color: var(--on-accent);
   align-self: center;
   min-width: 140px;
 }
