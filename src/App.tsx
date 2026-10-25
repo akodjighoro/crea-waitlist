@@ -229,8 +229,8 @@ export function App() {
   if (!supabase) {
     return (
       <main className="page">
-        <h1 className="mark">crea</h1>
-        <p className="setup">Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to web/.env.local.</p>
+        <h1 className="mark enter">crea</h1>
+        <p className="setup enter d1">Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to web/.env.local.</p>
       </main>
     );
   }
@@ -238,12 +238,12 @@ export function App() {
   if (place && thanks) {
     return (
       <main className="page">
-        <h1 className="mark">crea</h1>
+        <h1 className="mark enter">crea</h1>
         <div className="done">
-          <div className="number">#{place.position}</div>
-          <h2 className="done-title">you’re in line.</h2>
-          <p className="done-copy">@{place.username} is reserved. We’ll email you when it’s your turn.</p>
-          <button className="reset" type="button" onClick={() => { writeThanks(false); setThanks(false); }}>done</button>
+          <div className="number enter d1">#{place.position}</div>
+          <h2 className="done-title enter d2">you’re in line.</h2>
+          <p className="done-copy enter d3">@{place.username} is reserved. We’ll email you when it’s your turn.</p>
+          <button className="reset enter d4" type="button" onClick={() => { writeThanks(false); setThanks(false); }}>done</button>
         </div>
       </main>
     );
@@ -252,7 +252,7 @@ export function App() {
   if (!ready) {
     return (
       <main className="page">
-        <h1 className="mark">crea</h1>
+        <h1 className="mark enter">crea</h1>
       </main>
     );
   }
@@ -260,8 +260,8 @@ export function App() {
   if (place) {
     return (
       <main className="page">
-        <h1 className="mark">crea</h1>
-        <div className="window">
+        <h1 className="mark enter">crea</h1>
+        <div className="window enter d1">
           <div className="titlebar"><span>Join the first 100</span><span className="titlebar-dot" /></div>
           <div className="client">
             <p className="locked-copy">This device already reserved a spot.</p>
@@ -269,7 +269,7 @@ export function App() {
             <p className="locked-copy">@{place.username} is reserved.</p>
           </div>
         </div>
-        <p className="spots">{remaining} of {CAP} spots left</p>
+        <p className="spots enter d2">{remaining} of {CAP} spots left</p>
       </main>
     );
   }
@@ -277,13 +277,13 @@ export function App() {
   if (closed) {
     return (
       <main className="page">
-        <h1 className="mark">crea</h1>
-        <div className="closed">
+        <h1 className="mark enter">crea</h1>
+        <div className="closed enter d1">
           <h2 className="done-title">the first 100 are in.</h2>
           <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
         </div>
         <form className="form" onSubmit={lookup}>
-          <div className="window">
+          <div className="window enter d2">
             <div className="titlebar"><span>Look up</span><span className="titlebar-dot" /></div>
             <div className="client">
               <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
@@ -298,9 +298,9 @@ export function App() {
 
   return (
     <main className="page">
-      <h1 className="mark">crea</h1>
+      <h1 className="mark enter">crea</h1>
       <form className="form" onSubmit={submit}>
-        <div className="window">
+        <div className="window enter d1">
           <div className="titlebar"><span>Join the first 100</span><span className="titlebar-dot" /></div>
           <div className="client">
             <div className="fields">
@@ -339,9 +339,9 @@ export function App() {
             </button>
           </div>
         </div>
-        <p className="legal">This reserves a spot. It is not an account. You must be 17 or older.</p>
+        <p className="legal enter d2">This reserves a spot. It is not an account. You must be 17 or older.</p>
       </form>
-      <p className="spots">{remaining} of {CAP} spots left</p>
+      <p className="spots enter d3">{remaining} of {CAP} spots left</p>
     </main>
   );
 }

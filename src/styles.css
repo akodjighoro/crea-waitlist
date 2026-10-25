@@ -331,3 +331,37 @@ input {
   text-align: center;
   padding: 40px 8px;
 }
+
+.enter {
+  animation: rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.d1 { animation-delay: 70ms; }
+.d2 { animation-delay: 140ms; }
+.d3 { animation-delay: 210ms; }
+.d4 { animation-delay: 280ms; }
+
+.hint.error,
+.window .error,
+.error {
+  animation: fade 220ms ease-out both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .hint.error,
+  .window .error,
+  .error {
+    animation: none;
+  }
+}
