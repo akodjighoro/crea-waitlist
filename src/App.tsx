@@ -84,20 +84,25 @@ function Field({
   hint?: string;
   error?: string | null;
 }) {
+  const [focused, setFocused] = useState(false);
+  const showCount = Boolean(maxLength && (focused || value.length >= (maxLength - 2)));
+
   return (
-    <label className="field">
+    <label className={`field${focused ? ' focused' : ''}${error ? ' invalid' : ''}`}>
       <span className="label-row">
         <span className="label">{label}</span>
-        {maxLength ? (
-          <span className={`count${value.length >= maxLength ? ' warn' : ''}`}>{value.length}/{maxLength}</span>
+        {showCount ? (
+          <span className={`count${value.length >= maxLength! ? ' warn' : ''}`}>{value.length}/{maxLength}</span>
         ) : null}
       </span>
-      <span className={`input-row${error ? ' invalid' : ''}`}>
+      <span className="input-row">
         {prefix ? <span className="prefix">{prefix}</span> : null}
         <input
           className="input"
           value={value}
           onChange={(event) => onChange(event.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           placeholder={placeholder}
           maxLength={maxLength}
           type={type}
@@ -280,9 +285,11 @@ export function App() {
           <p className="done-copy">If you already reserved a spot, enter the same email to see your number.</p>
         </div>
         <form className="glass form enter d2" onSubmit={lookup}>
-          <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
+          <div className="fields">
+            <Field label="email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" autoComplete="email" />
+          </div>
           {error ? <p className="error">{error}</p> : null}
-          <button className="submit" type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
+          <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy}>{busy ? 'checking' : 'see my number'}</button>
         </form>
       </main>
     );
@@ -323,7 +330,7 @@ export function App() {
         </div>
         {unavailable ? <p className="error">The list is not open yet. Run the waitlist SQL in Supabase, then refresh.</p> : null}
         {error ? <p className="error">{error}</p> : null}
-        <button className="submit" type="submit" disabled={busy || unavailable || !!usernameError}>
+        <button className={`submit${busy ? ' busy' : ''}`} type="submit" disabled={busy || unavailable || !!usernameError}>
           {busy ? 'joining' : 'join'}
         </button>
         <p className="legal">This reserves a spot. It is not an account. You must be 17 or older.</p>
