@@ -34,7 +34,7 @@ export function Page({ children }: { children?: ReactNode }) {
     <main className="page">
       <div className="brand enter">
         <div className="orb" aria-hidden>
-          <ThinkingOrb state="searching" size={64} theme="dark" />
+          <ThinkingOrb state="searching" size={32} theme="dark" />
         </div>
         <h1 className="mark">crea</h1>
       </div>
